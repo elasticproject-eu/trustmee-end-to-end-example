@@ -1,0 +1,11 @@
+[package]
+name = "trustmee-end-to-end-example"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+trustmee-attester = { git = "https://github.com/elasticproject-eu/trustmee-attester", features = ["confidential-containers"] }
+wasm-verification-component = { git = "https://github.com/elasticproject-eu/trustmee-lib" }
+tokio = { version = "1", features = ["full"] }
+anyhow = "1"
+serde_json = "1"
