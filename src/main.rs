@@ -1,6 +1,6 @@
 use std::{collections::HashMap, path::PathBuf};
 
-use trustmee_attester::trustmee_coco_client::CocoClient;
+use trustmee_attester::trustmee_coco_client::{CocoClient, CocoBuildWithCollateralOptions};
 use wasm_verification_component::{VerifyOptions, WasmVerificationComponent};
 
 const TRUSTED_COMPONENTS: &[(&str, &str)] = &[
@@ -20,7 +20,11 @@ async fn main() -> anyhow::Result<()> {
 
     let built = CocoClient::builder()
         .build()?
-        .build_trustmee_json_cmw_coco_with_collateral(None)
+        .build_trustmee_json_cmw_coco_with_collateral(
+            CocoBuildWithCollateralOptions::builder()
+                .component_oci_url("oci://docker.io/pss1998/tdx-verifier-component:1.0.0")
+                .tdx_collateral(),
+        )
         .await?;
 
     println!("component id : {}", built.component_id);
